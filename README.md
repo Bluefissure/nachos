@@ -4,5 +4,5 @@ nachos lab of OS Design in SDU (C/C++ version)
 
 Now:
 
-	Finished lab5
+	Lab5 finished 
 	Lab6 working........
