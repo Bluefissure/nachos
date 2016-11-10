@@ -96,7 +96,7 @@ AddrSpace::AddrSpace(OpenFile *executable)
     pageTable = new TranslationEntry[numPages];
     for (i = 0; i < numPages; i++) {
 		pageTable[i].virtualPage = i;	// for now, virtual page # = phys page #
-		pageTable[i].physicalPage = pageMap->Find();
+		pageTable[i].physicalPage = pageMap->Find();	//use pageMap to manage 
 		pageTable[i].valid = TRUE;
 		pageTable[i].use = FALSE;
 		pageTable[i].dirty = FALSE;
@@ -107,13 +107,13 @@ AddrSpace::AddrSpace(OpenFile *executable)
     
 // zero out the entire address space, to zero the unitialized data segment 
 // and the stack segment
-//    bzero(machine->mainMemory, size);
+//    bzero(machine->mainMemory, size);		//should not use bzero to set from head
 	for (i = 0; i < numPages; i++){
 		for (j = 0; j < PageSize; j++)
 			machine->mainMemory[ pageTable[i].physicalPage * PageSize + j ] = 0;
 	}
 
-	RestoreState();
+	RestoreState();	//store the addrspace in order to translate virtAddr
 
 // then, copy in the code and data segments into memory
     if (noffH.code.size > 0) {

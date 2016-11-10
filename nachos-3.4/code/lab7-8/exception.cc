@@ -60,7 +60,7 @@ ExceptionHandler(ExceptionType which)
 		int FilePathMaxLen = 100;
 		char filepath[FilePathMaxLen];
 		int fileaddr = machine->ReadRegister(4);
-		for (i = 0;filepath[i]; i++){
+		for (i = 0; filepath[i] != '\0'; i++){
 			if(!machine->ReadMem(fileaddr+4*i,4,(int*)(filepath+4*i)))
 				break;
 		}
@@ -68,8 +68,6 @@ ExceptionHandler(ExceptionType which)
 		printf("Thread %d Exec: file: %s\n", which, filepath);
 		extern void StartProcess(char *filename);
 		StartProcess(filepath);
-
-		interrupt->Halt();
 	}else if((which == SyscallException) && (type == SC_Exit)){
 		int ExitCode = machine->ReadRegister(4);
 		Exit(ExitCode);
