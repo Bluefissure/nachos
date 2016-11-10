@@ -1,24 +1,21 @@
 # nachos
 nachos lab of OS Design in SDU (C/C++ version)
 
-Now:
+##Now:
 
-	Lab5 Finished	
+* Lab5 Finished	
+* Lab6-7 Finished
+* Lab8 Finished
 
-	Lab6-7 Finished
+##Intro:
 
-	Lab8 Finished
+* During Lab8, I misunderstood the function of Exce() to Join().Thus some code of Join are finished already (such as Save/Load memory when switch context).
 
-Intro:
+* If you have any problems, I'll be grateful if you can raise an issue or just push to this project.
 
-	During Lab8, I misunderstood the function of Exce() to Join(), thus some code of Join are finished already (such as Save/Load memory when switch context).
+* Sorry for any bugs or mistakes in this project.
 
-	If you have any problems, I'll be grateful if you can raise an issue or just push to this project.
+##Use:
 
-	Sorry for any bug or mistake in this project.
-
-Use:
-
-	Clone this project to your homedir and run 'make' './nachos ......' or any shell script in the lab subdir.
-
-	For example, in lab5, you can see results of 'Append' and 'NAppend' after running ap.sh or nap.sh .
+* Clone this project to your homedir and run 'make' './nachos ......' or any shell script in the lab subdir.
+* For example, in lab5, you can see results of function 'Append' or 'NAppend' after running ap.sh or nap.sh .
