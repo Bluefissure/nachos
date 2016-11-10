@@ -50,7 +50,7 @@ LD = $(GCCDIR)ld
 #        corresponding .o with start.o.  If you want to have more than
 #        one .c file per target, you will have to change stuff below.
 
-targets = halt shell matmult sort
+targets = halt shell matmult sort exec
 
 # Targest are put in the architecture specific 'bin' dir.
 

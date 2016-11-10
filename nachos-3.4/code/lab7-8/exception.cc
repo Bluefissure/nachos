@@ -51,13 +51,31 @@
 void
 ExceptionHandler(ExceptionType which)
 {
-    int type = machine->ReadRegister(2);
+    int type = machine->ReadRegister(2), i;
 
     if ((which == SyscallException) && (type == SC_Halt)) {
 	DEBUG('a', "Shutdown, initiated by user program.\n");
    	interrupt->Halt();
-    } else {
-	printf("Unexpected user mode exception %d %d\n", which, type);
-	ASSERT(FALSE);
+	}else if((which == SyscallException) && (type == SC_Exec)){
+		int FilePathMaxLen = 100;
+		char filepath[FilePathMaxLen];
+		int fileaddr = machine->ReadRegister(4);
+		for (i = 0;filepath[i]; i++){
+			if(!machine->ReadMem(fileaddr+4*i,4,(int*)(filepath+4*i)))
+				break;
+		}
+//		DEBUG('a',"Thread %d Exec: file: %s\n", which, filepath);
+		printf("Thread %d Exec: file: %s\n", which, filepath);
+		extern void StartProcess(char *filename);
+		StartProcess(filepath);
+
+		interrupt->Halt();
+	}else if((which == SyscallException) && (type == SC_Exit)){
+		int ExitCode = machine->ReadRegister(4);
+		Exit(ExitCode);
+	}
+	else {
+		printf("Unexpected user mode exception %d %d\n", which, type);
+		ASSERT(FALSE);
     }
 }

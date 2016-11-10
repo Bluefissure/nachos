@@ -21,7 +21,7 @@
 #include "noff.h"
 #include "bitmap.h"
 
-static BitMap *pageMap = new BitMap(machine->pageTableSize);
+static BitMap *pageMap = new BitMap(NumPhysPages);
 
 
 //----------------------------------------------------------------------
@@ -49,8 +49,6 @@ SwapHeader (NoffHeader *noffH)
 //----------------------------------------------------------------------
 // AddrSpace::AddrSpace
 // 	Create an address space to run a user program.
-//	Load the program from a file "executable", and set everything
-//	up so that we can start executing user instructions.
 //
 //	Assumes that the object code file is in NOFF format.
 //
@@ -114,6 +112,8 @@ AddrSpace::AddrSpace(OpenFile *executable)
 		for (j = 0; j < PageSize; j++)
 			machine->mainMemory[ pageTable[i].physicalPage * PageSize + j ] = 0;
 	}
+
+	RestoreState();
 
 // then, copy in the code and data segments into memory
     if (noffH.code.size > 0) {
@@ -247,17 +247,20 @@ void AddrSpace::SaveState() //Save register to memory and save memory
 void AddrSpace::RestoreState() 
 {
 	unsigned int numRegPages, i, j, offset;
-	numRegPages = divRoundUp(NumTotalRegs * 4, PageSize);
-    machine->pageTable = regPageTable;
-    machine->pageTableSize = numRegPages;
-	for (i = 0, j = 0, offset = 0; i < NumTotalRegs; i++, offset += 4){
-		if(offset >= PageSize){
-			offset %= PageSize;
-			j++;
+	if(regPageTable != NULL){
+		numRegPages = divRoundUp(NumTotalRegs * 4, PageSize);
+		machine->pageTable = regPageTable;
+		machine->pageTableSize = numRegPages;
+		for (i = 0, j = 0, offset = 0; i < NumTotalRegs; i++, offset += 4){
+			if(offset >= PageSize){
+				offset %= PageSize;
+				j++;
+			}
+			int tmpRegValue;
+			machine->ReadMem(j * PageSize + offset, 4, &tmpRegValue);
+			machine->WriteRegister(i, tmpRegValue);
 		}
-		int tmpRegValue;
-		machine->ReadMem(j * PageSize + offset, 4, &tmpRegValue);
-		machine->WriteRegister(i, tmpRegValue);
+
 	}
     machine->pageTable = pageTable;
     machine->pageTableSize = numPages;
