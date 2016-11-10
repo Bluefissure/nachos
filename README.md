@@ -1,5 +1,10 @@
 # nachos
 nachos lab of OS Design in SDU (C/C++ version)
+
 Now:
-	Finished lab5
-	Lab6 working........
+
+	Lab5 Finished	
+
+	Lab6-7 Finished
+
+	Lab8 Working & Debugging

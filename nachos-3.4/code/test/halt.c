@@ -11,7 +11,7 @@
  */
 
 #include "syscall.h"
-
+static int a[40];
 int
 main()
 {

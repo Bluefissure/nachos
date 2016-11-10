@@ -209,45 +209,45 @@ Machine::Translate(int virtAddr, int* physAddr, int size, bool writing)
     offset = (unsigned) virtAddr % PageSize;
     
     if (tlb == NULL) {		// => page table => vpn is index into table
-	if (vpn >= pageTableSize) {
-	    DEBUG('a', "virtual page # %d too large for page table size %d!\n", 
-			virtAddr, pageTableSize);
-	    return AddressErrorException;
-	} else if (!pageTable[vpn].valid) {
-	    DEBUG('a', "virtual page # %d too large for page table size %d!\n", 
-			virtAddr, pageTableSize);
-	    return PageFaultException;
-	}
-	entry = &pageTable[vpn];
+		if (vpn >= pageTableSize) {
+			DEBUG('a', "virtual page # %d too large for page table size %d!\n", 
+				virtAddr, pageTableSize);
+			return AddressErrorException;
+		} else if (!pageTable[vpn].valid) {
+			DEBUG('a', "virtual page # %d too large for page table size %d!\n", 
+				virtAddr, pageTableSize);
+			return PageFaultException;
+		}
+		entry = &pageTable[vpn];
     } else {
         for (entry = NULL, i = 0; i < TLBSize; i++)
     	    if (tlb[i].valid && ((unsigned int)tlb[i].virtualPage == vpn)) {
-		entry = &tlb[i];			// FOUND!
-		break;
-	    }
-	if (entry == NULL) {				// not found
-    	    DEBUG('a', "*** no valid TLB entry found for this virtual page!\n");
-    	    return PageFaultException;		// really, this is a TLB fault,
-						// the page may be in memory,
-						// but not in the TLB
-	}
+				entry = &tlb[i];			// FOUND!
+				break;
+			}
+		if (entry == NULL) {				// not found
+				DEBUG('a', "*** no valid TLB entry found for this virtual page!\n");
+				return PageFaultException;		// really, this is a TLB fault,
+							// the page may be in memory,
+							// but not in the TLB
+		}
     }
 
     if (entry->readOnly && writing) {	// trying to write to a read-only page
-	DEBUG('a', "%d mapped read-only at %d in TLB!\n", virtAddr, i);
-	return ReadOnlyException;
+		DEBUG('a', "%d mapped read-only at %d in TLB!\n", virtAddr, i);
+		return ReadOnlyException;
     }
     pageFrame = entry->physicalPage;
 
     // if the pageFrame is too big, there is something really wrong! 
     // An invalid translation was loaded into the page table or TLB. 
     if (pageFrame >= NumPhysPages) { 
-	DEBUG('a', "*** frame %d > %d!\n", pageFrame, NumPhysPages);
-	return BusErrorException;
+		DEBUG('a', "*** frame %d > %d!\n", pageFrame, NumPhysPages);
+		return BusErrorException;
     }
     entry->use = TRUE;		// set the use, dirty bits
     if (writing)
-	entry->dirty = TRUE;
+		entry->dirty = TRUE;
     *physAddr = pageFrame * PageSize + offset;
     ASSERT((*physAddr >= 0) && ((*physAddr + size) <= MemorySize));
     DEBUG('a', "phys addr = 0x%x\n", *physAddr);
