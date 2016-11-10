@@ -3,7 +3,7 @@ nachos lab of OS Design in SDU 2016
 
 ##Now:
 
-* Lab5 Finished	
+* Lab3-5 Finished	
 * Lab6-7 Finished
 * Lab8 Finished
 
