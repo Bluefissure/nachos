@@ -11,9 +11,9 @@ nachos lab of OS Design in SDU 2016
 
 * During Lab8, I misunderstood the function of Exce() to Join(). Thus some code of Join() are finished already (such as Save/Load memory when switching context).
 
-* If you have any problems, I'll be grateful if you can raise an issue or just push to this project.
+* If you have any problem, I'll be grateful if you can raise an issue or just push to this project.
 
-* Sorry for any bugs or mistakes in this project.
+* Sorry for any bug or mistake in this project.
 
 ##Use:
 
