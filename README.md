@@ -1,5 +1,5 @@
-# nachos
-nachos lab of OS Design in SDU (C/C++ version)
+# nachos(C/C++ version)
+nachos lab of OS Design in SDU 2016
 
 ##Now:
 
@@ -9,7 +9,7 @@ nachos lab of OS Design in SDU (C/C++ version)
 
 ##Intro:
 
-* During Lab8, I misunderstood the function of Exce() to Join(). Thus some code of Join are finished already (such as Save/Load memory when switch context).
+* During Lab8, I misunderstood the function of Exce() to Join(). Thus some code of Join() are finished already (such as Save/Load memory when switch context).
 
 * If you have any problems, I'll be grateful if you can raise an issue or just push to this project.
 
