@@ -9,13 +9,13 @@ nachos lab of OS Design in SDU 2016
 
 ##Intro:
 
-* During Lab8, I misunderstood the function of Exce() to Join(). Thus some code of Join() are finished already (such as Save/Load memory when switching context).
+* In Lab8, I misunderstood the function of Exce() to Join(). Thus some code of Join() is finished already (such as Save/Load memory in context switch).
 
-* If you have any problem, I'll be grateful if you can raise an issue or just push to this project.
+* If you have any problems, feel free to raise an issue or just push it to this project.
 
-* Sorry for any bug or mistake in this project.
+* Sorry for any bugs or mistakes in this project.
 
 ##Use:
 
-* Clone this project to your homedir and run 'make' './nachos ......' or any shell script in the lab subdir.
+* Clone this project to your homedir and run 'make' './nachos ......' or any shell scripts in the lab subdir.
 * For example, in lab5, you can see results of function 'Append' or 'NAppend' after running ap.sh or nap.sh .
